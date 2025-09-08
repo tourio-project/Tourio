@@ -1,0 +1,12 @@
+# Create the FastAPI app
+app = FastAPI()
+
+# Root test endpoint
+@app.get("/")
+def root():
+    return {"message": "Hello Tourio!"}
+
+# SOS endpoint (for now just returns confirmation)
+@app.post("/sos")
+def trigger_sos():
+    return {"status": "SOS triggered"}
