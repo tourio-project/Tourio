@@ -1,12 +1,42 @@
-# Create the FastAPI app
+from fastapi import FastAPI
+from pydantic import BaseModel
+import firebase_admin
+from firebase_admin import credentials, firestore
+from datetime import datetime
+
+# Firebase Setup
+cred = credentials.Certificate("firebase-key.json")
+firebase_admin.initialize_app(cred)
+db = firestore.client()
+
+# FastAPI App 
 app = FastAPI()
 
-# Root test endpoint
+#Contact model
+class Contact(BaseModel):
+    name: str
+    phone: str
+    relationship: str
+
+# SOSRequest model 
+class SOSRequest(BaseModel):
+    user_id: str
+    latitude: float
+    longitude: float
+    contacts: list[Contact]
+
 @app.get("/")
 def root():
     return {"message": "Hello Tourio!"}
 
-# SOS endpoint (for now just returns confirmation)
 @app.post("/sos")
-def trigger_sos():
-    return {"status": "SOS triggered"}
+def trigger_sos(request: SOSRequest):
+    sos_event = {
+        "user_id": request.user_id,
+        "latitude": request.latitude,
+        "longitude": request.longitude,
+        "timestamp": datetime.utcnow(),
+        "contacts": [c.dict() for c in request.contacts]
+    }
+    doc_ref = db.collection("sos_events").add(sos_event)
+    return {"status": "SOS triggered", "id": doc_ref[1].id}
