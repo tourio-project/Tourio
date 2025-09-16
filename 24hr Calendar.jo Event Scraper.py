@@ -4,6 +4,10 @@ import csv
 import schedule
 import time
 from datetime import datetime
+import firebase_admin
+from firebase_admin import credentials, firestore
+from fastapi import FastAPI
+import uvicorn
 
 #The scraping part
 def scrape_calendar():
