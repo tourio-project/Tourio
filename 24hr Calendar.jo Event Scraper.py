@@ -9,6 +9,13 @@ from firebase_admin import credentials, firestore
 from fastapi import FastAPI
 import uvicorn
 
+# Firebase Setup
+# Replace with path to service account JSON (from nasser)
+cred = credentials.Certificate("firebase-key.json")
+firebase_admin.initialize_app(cred)
+db = firestore.client()
+events_collection = db.collection("trending_events")
+
 #The scraping part
 def scrape_calendar():
     print(f"[{datetime.now()}] Starting...")
