@@ -3,4 +3,4 @@ from firebase_admin import credentials
 
 cred = credentials.Certificate("path/to/serviceAccountKey.json")
 firebase_admin.initialize_app(cred)
-#contact me(nbz06) for the .json connection file to the database that is to replace the placeholder
+#contact me(nbz113) for the .json connection file to the database that is to replace the placeholder
