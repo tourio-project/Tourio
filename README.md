@@ -13,6 +13,10 @@ It stores the events in Firebase Firestore and provides an API endpoint (`/trend
 
 ### Emergency Assistant & Safety Alerts
 
+## Design
+[![Figma Design](https://img.shields.io/badge/Figma-Design-blue?logo=figma)](https://www.figma.com/file/Zaen0sR7mtfpdEhu1beEey/Tourio?type=design&node-id=0%3A1&mode=design&t=sjqqiXtqNg2a94RO-1)
+
+
 ## Developers
 - Mira Diab — Backend (Trending Now, Emergency Service) & UI Design (Figma)
 - [Teammate 1 Name] — Frontend etc.
