@@ -25,9 +25,9 @@ def generate_rand_location(id):
     lon = random.uniform(35.61400818573995,36.340664462085215)
     return {"name": id,"mood": mood, "weather_ok": weather, "cost": cost, "cat": categories,"lat":lat,"lon":lon}
 
-
-for i in range(1,101):
-    loc = generate_rand_location(i)
-    db.collection("Locations").document(str(i)).set(loc)
-    print("Added document with ID: ",i)
+def generate_Locs(n):
+    for i in range(1,n+1):
+        loc = generate_rand_location(i)
+        db.collection("Locations").document(str(i)).set(loc)
+        print("Added location with ID: ",i)
 
