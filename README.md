@@ -20,7 +20,7 @@ It stores the events in Firebase Firestore and provides an API endpoint (`/trend
 ## Developers
 - Mira Diab — Backend (Trending Now, Emergency Service) & UI Design (Figma)
 - Mayar Hasan and Marwan — Frontend etc.
-- [Teammate 2 Name] — Database etc. 
-- [Teammate 3 Name] — AI Features etc.
+- Nasser — Database etc. 
+- Omar Salman — AI Features etc.
 - mayar hasan- connection of frontend with back end 
 
