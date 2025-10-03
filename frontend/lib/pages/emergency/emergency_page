@@ -1,1 +1,211 @@
+import 'dart:async';
+import 'package:flutter/material.dart';
+import '../utils/navigation_utils.dart';
+//done
+class EmergencyPage extends StatefulWidget {
+  const EmergencyPage({super.key});
+
+  @override
+  State<EmergencyPage> createState() => _EmergencyPageState();
+}
+
+class _EmergencyPageState extends State<EmergencyPage> {
+  // Palette tuned to your screenshot
+  static const cream = Color(0xFFF8F6F5);
+  static const panelPink = Color(0xFFEBD6D6);
+  static const red = Color(0xFFD32F2F);
+  static const label = Color(0xFF6B6B6B);
+  static const cardBorder = Color(0xFFE8E6E6);
+
+  Timer? _sosTimer;
+  static const _holdTime = Duration(seconds: 3);
+
+  void _startSOS() {
+    _cancelSOS();
+    _sosTimer = Timer(_holdTime, () {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Emergency alert sent to your contacts.'),
+        ),
+      );
+    });
+  }
+
+  void _cancelSOS() {
+    _sosTimer?.cancel();
+    _sosTimer = null;
+  }
+
+  @override
+  void dispose() {
+    _cancelSOS();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white, // page background in your mock
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // SOS panel
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 28, horizontal: 20),
+                decoration: BoxDecoration(
+                  color: panelPink,
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.06),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    GestureDetector(
+                      onTapDown: (_) => _startSOS(),
+                      onTapUp: (_) => _cancelSOS(),
+                      onTapCancel: _cancelSOS,
+                      child: Container(
+                        width: 140,
+                        height: 140,
+                        decoration: const BoxDecoration(
+                          color: red,
+                          shape: BoxShape.circle,
+                        ),
+                        alignment: Alignment.center,
+                        child: const Text(
+                          'SOS\nEMERGENCY',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w800,
+                            height: 1.15,
+                            letterSpacing: 0.3,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    const Text(
+                      'Press and hold for 3 seconds to alert emergency contacts',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: label,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 28),
+
+              // Police
+              _EmergencyServiceCard(
+                icon: Icons.local_police,
+                label: 'Police',
+                onCall: () {
+                  // TODO: integrate url_launcher to dial (e.g., tel://911)
+                },
+              ),
+              const SizedBox(height: 16),
+
+              // Ambulance
+              _EmergencyServiceCard(
+                icon: Icons.medical_services,
+                label: 'Ambulance',
+                onCall: () {
+                  // TODO: integrate url_launcher to dial
+                },
+              ),
+              const SizedBox(height: 16),
+
+              // Fire
+              _EmergencyServiceCard(
+                icon: Icons.fire_truck,
+                label: 'Fire Department',
+                onCall: () {
+                  // TODO: integrate url_launcher to dial
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: buildBottomNavigationBar(context, 4),
+    );
+  }
+}
+
+class _EmergencyServiceCard extends StatelessWidget {
+  const _EmergencyServiceCard({
+    required this.icon,
+    required this.label,
+    required this.onCall,
+  });
+
+  final IconData icon;
+  final String label;
+  final VoidCallback onCall;
+
+  static const cardBorder = _EmergencyPageState.cardBorder;
+  static const cream = _EmergencyPageState.cream;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(16, 18, 16, 16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(color: cardBorder),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.03),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          Icon(icon, size: 28, color: Colors.black87),
+          const SizedBox(height: 8),
+          Text(
+            label,
+            style: const TextStyle(
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const SizedBox(height: 14),
+          SizedBox(
+            height: 38,
+            child: OutlinedButton.icon(
+              onPressed: onCall,
+              icon: const Icon(Icons.call, size: 18),
+              label: const Text('Call'),
+              style: OutlinedButton.styleFrom(
+                foregroundColor: Colors.black87,
+                side: const BorderSide(color: cardBorder),
+                backgroundColor: cream,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
 
