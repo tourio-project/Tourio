@@ -1,1 +1,38 @@
+import 'package:flutter/material.dart';
 
+class CultureRow extends StatelessWidget {
+  const CultureRow({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    const beige = Color(0xFFF3E8DE);
+    Widget tile(String label) => Column(
+          children: [
+            Container(
+              width: 160,
+              height: 120,
+              decoration: BoxDecoration(
+                color: beige,
+                borderRadius: BorderRadius.circular(18),
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(label, style: const TextStyle(fontWeight: FontWeight.w700)),
+          ],
+        );
+
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Row(
+        children: [
+          tile('Etiquette'),
+          const SizedBox(width: 16),
+          tile('Culture'),
+          const SizedBox(width: 16),
+          tile('Phrases'),
+        ],
+      ),
+    );
+  }
+}
