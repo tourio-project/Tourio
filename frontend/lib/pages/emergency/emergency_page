@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import '../utils/navigation_utils.dart';
-//done
+
 class EmergencyPage extends StatefulWidget {
   const EmergencyPage({super.key});
 
@@ -10,7 +10,6 @@ class EmergencyPage extends StatefulWidget {
 }
 
 class _EmergencyPageState extends State<EmergencyPage> {
-  // Palette tuned to your screenshot
   static const cream = Color(0xFFF8F6F5);
   static const panelPink = Color(0xFFEBD6D6);
   static const red = Color(0xFFD32F2F);
@@ -46,7 +45,7 @@ class _EmergencyPageState extends State<EmergencyPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, // page background in your mock
+      backgroundColor: Colors.white, 
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
@@ -114,7 +113,7 @@ class _EmergencyPageState extends State<EmergencyPage> {
                 icon: Icons.local_police,
                 label: 'Police',
                 onCall: () {
-                  // TODO: integrate url_launcher to dial (e.g., tel://911)
+                  //add the number of the police
                 },
               ),
               const SizedBox(height: 16),
@@ -124,7 +123,7 @@ class _EmergencyPageState extends State<EmergencyPage> {
                 icon: Icons.medical_services,
                 label: 'Ambulance',
                 onCall: () {
-                  // TODO: integrate url_launcher to dial
+                  // add the number
                 },
               ),
               const SizedBox(height: 16),
@@ -134,7 +133,7 @@ class _EmergencyPageState extends State<EmergencyPage> {
                 icon: Icons.fire_truck,
                 label: 'Fire Department',
                 onCall: () {
-                  // TODO: integrate url_launcher to dial
+                  //add fire department
                 },
               ),
             ],
