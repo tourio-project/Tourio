@@ -1,0 +1,154 @@
+import 'package:flutter/material.dart';
+import '../widgets/tourio_logo.dart';
+import '../widgets/event_row.dart';
+import '../widgets/culture_row.dart';
+import '../utils/navigation_utils.dart';
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  Widget build(BuildContext context) {
+    const maroon = Color(0xFF5C1E16);
+    const beige = Color(0xFFF3E8DE);
+
+    return Scaffold(
+      body: Stack(
+        children: [
+          SizedBox(
+            height: 260,
+            width: double.infinity,
+            child: Image.asset('assets/images/petra_image.jpg', fit: BoxFit.cover),
+          ),
+          const SafeArea(
+            child: Column(
+              children: [
+                SizedBox(height: 16),
+                TourioLogo(width: 230),
+              ],
+            ),
+          ),
+          Positioned(
+            top: 220,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(28),
+                  topRight: Radius.circular(28),
+                ),
+              ),
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  const SizedBox(height: 14),
+                  Center(
+                    child: Container(
+                      width: 36,
+                      height: 4,
+                      decoration: BoxDecoration(
+                        color: Colors.black12,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                      'Discover Jordan with intelligence',
+                      style: TextStyle(
+                        fontFamily: 'ArefRuqaaInk',
+                        fontSize: 28,
+                        color: maroon,
+                        height: 1.2,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  const Center(
+                    child: Text(
+                      'Start planning your trip with AI!',
+                      style: TextStyle(
+                        fontFamily: 'ArefRuqaaInk',
+                        fontSize: 18,
+                        color: Color(0xFFA7332A),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 14),
+                  Center(
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/travel-mode');
+                      },
+                      child: Container(
+                        width: 300,
+                        height: 90,
+                        decoration: BoxDecoration(
+                          color: beige,
+                          borderRadius: BorderRadius.circular(18),
+                          boxShadow: const [
+                            BoxShadow(color: Colors.black12, blurRadius: 6, offset: Offset(0, 3)),
+                          ],
+                        ),
+                        child: Center(
+                          child: Image.asset(
+                            'assets/images/shape.jpg',
+                            width: 38,
+                            height: 38,
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 28),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                      'Happening Now',
+                      style: TextStyle(
+                        fontFamily: 'ArefRuqaaInk',
+                        fontSize: 28,
+                        color: maroon,
+                        height: 1.2,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  const EventRow(),
+                  const SizedBox(height: 28),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                      'Explore the culture',
+                      style: TextStyle(
+                        fontFamily: 'ArefRuqaaInk',
+                        fontSize: 28,
+                        color: maroon,
+                        height: 1.2,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  const CultureRow(),
+                  const SizedBox(height: 28),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+      bottomNavigationBar: buildBottomNavigationBar(context, 0),
+    );
+  }
+}
