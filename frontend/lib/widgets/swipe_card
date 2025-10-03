@@ -1,1 +1,173 @@
+import 'package:flutter/material.dart';
+import '../models/activity_card.dart';
+import 'transport_type.dart';
+import '../models/transport_type_enum.dart';
 
+class SwipeCard extends StatelessWidget {
+  final ActivityCard activity;
+  final VoidCallback onSwipeRight;
+  final VoidCallback onSwipeLeft;
+
+  const SwipeCard({
+    super.key,
+    required this.activity,
+    required this.onSwipeRight,
+    required this.onSwipeLeft,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onHorizontalDragEnd: (details) {
+        if (details.primaryVelocity! > 0) {
+          onSwipeRight();
+        } else if (details.primaryVelocity! < 0) {
+          onSwipeLeft();
+        }
+      },
+      child: Container(
+        width: double.infinity,
+        height: 500,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(24),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 20,
+              offset: const Offset(0, 10),
+            ),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 3,
+                child: Stack(
+                  children: [
+                    Image.asset(
+                      activity.image,
+                      width: double.infinity,
+                      height: double.infinity,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) => const Center(
+                        child: Icon(Icons.error, color: Colors.red, size: 48),
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.transparent,
+                            Colors.black.withOpacity(0.7),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      left: 20,
+                      top: 20,
+                      right: 20,
+                      child: Text(
+                        activity.title,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.w700,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                flex: 2,
+                child: Container(
+                  padding: const EdgeInsets.all(20),
+                  color: Colors.white,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        activity.description,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF5C1E16),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.location_on,
+                            size: 16,
+                            color: Color(0xFFC03A2B),
+                          ),
+                          const SizedBox(width: 4),
+                          Expanded(
+                            child: Text(
+                              activity.location,
+                              style: const TextStyle(
+                                fontSize: 14,
+                                color: Color(0xFF8B4513),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 4,
+                            ),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFC03A2B).withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Text(
+                              activity.duration,
+                              style: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xFFC03A2B),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 15),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: TransportType(
+                              icon: TransportTypeEnum.bus.icon,
+                              label: TransportTypeEnum.bus.label,
+                              isSelected: activity.transport.contains(TransportTypeEnum.bus),
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: TransportType(
+                              icon: TransportTypeEnum.car.icon,
+                              label: TransportTypeEnum.car.label,
+                              isSelected: activity.transport.contains(TransportTypeEnum.car),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
