@@ -6,7 +6,7 @@ const _maroon = Color(0xFF5C1E16);
 const _accent = Color(0xFFC03A2B);
 const _chipBg = Color(0xFF2B0D0D);
 
-// --------- Models (same as before) ---------
+
 class TripPlan {
   TripPlan({required this.members, required this.days});
   final List<Member> members;
@@ -67,7 +67,7 @@ class Activity {
       );
 }
 
-// --------- Page ---------
+//Page 
 class YourTripPage extends StatefulWidget {
   const YourTripPage({super.key});
   @override
@@ -172,7 +172,6 @@ class _YourTripPageState extends State<YourTripPage>
     return ListView(
       padding: const EdgeInsets.fromLTRB(16, 14, 16, 18),
       children: [
-        // drag handle
         Center(
           child: Container(
             width: 40,
@@ -325,7 +324,7 @@ class _YourTripPageState extends State<YourTripPage>
   }
 }
 
-// --------- Widgets ---------
+//Widgets
 class _MembersRow extends StatelessWidget {
   const _MembersRow({required this.members});
   final List<Member> members;
