@@ -1,1 +1,156 @@
+import 'package:flutter/material.dart';
+
+class AccommodationPage extends StatefulWidget {
+  const AccommodationPage({super.key});
+
+  @override
+  State<AccommodationPage> createState() => _AccommodationPageState();
+}
+
+class _AccommodationPageState extends State<AccommodationPage> {
+  
+  static const cream  = Color(0xFFF3E8DE);
+  static const maroon = Color(0xFF5C1E16);
+  static const dark   = Color(0xFF2B0D0D);
+  static const accent = Color(0xFFC03A2B);
+
+  bool _needsAccommodation = true; 
+
+  @override
+  Widget build(BuildContext context) {
+    final Map args = (ModalRoute.of(context)?.settings.arguments as Map?) ?? {};
+
+    return Scaffold(
+      backgroundColor: cream,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 28),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(height: 8),
+              const Text(
+                'Help us plan your perfect trip — just a few quick questions!',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: maroon,
+                  height: 1.35,
+                ),
+              ),
+              const SizedBox(height: 40),
+
+              const Text(
+                'Will you need accommodation?',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w700,
+                  color: maroon,
+                ),
+              ),
+              const SizedBox(height: 18),
+
+              
+              Center(
+                child: SegmentedButton<bool>(
+                  segments: const [
+                    ButtonSegment<bool>(value: true,  label: Text('Yes')),
+                    ButtonSegment<bool>(value: false, label: Text('No')),
+                  ],
+                  selected: {_needsAccommodation},
+                  onSelectionChanged: (set) {
+                    setState(() => _needsAccommodation = set.first);
+                  },
+                  style: ButtonStyle(
+                    padding: WidgetStateProperty.all(
+                      const EdgeInsets.symmetric(vertical: 14, horizontal: 24),
+                    ),
+                    shape: WidgetStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    side: WidgetStateProperty.resolveWith((states) {
+                      final selected = states.contains(WidgetState.selected);
+                      return BorderSide(
+                        color: selected ? accent : dark,
+                        width: selected ? 2 : 1.2,
+                      );
+                    }),
+                
+                    backgroundColor: WidgetStateProperty.resolveWith((states) {
+                      final selected = states.contains(WidgetState.selected);
+                      return selected ? dark.withOpacity(0.95) : dark;
+                    }),
+                    foregroundColor:
+                        WidgetStateProperty.all<Color>(Colors.white),
+                    overlayColor: WidgetStateProperty.all(accent.withOpacity(.08)),
+                  ),
+                ),
+              ),
+
+              const Spacer(),
+
+            
+              Row(
+                children: [
+                  Expanded(
+                    child: OutlinedButton.icon(
+                      onPressed: () => Navigator.pop(context),
+                      icon: const Icon(Icons.arrow_back),
+                      label: const Text('BACK'),
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: accent,
+                        side: const BorderSide(color: accent, width: 2),
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        textStyle: const TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        final nextArgs = {
+                          ...args,
+                          'needsAccommodation': _needsAccommodation,
+                        };
+                        Navigator.pushNamed(
+                          context,
+                          '/group-size',
+                          arguments: nextArgs,
+                        );
+                      },
+                      icon: const Icon(Icons.arrow_forward),
+                      label: const Text('NEXT'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: accent,
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        textStyle: const TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
 
