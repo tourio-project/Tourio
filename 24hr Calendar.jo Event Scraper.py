@@ -15,7 +15,7 @@ import uvicorn
 # We use a "firebase-key.json" file (the secret key we got from Firebase)
 # to authenticate securely and then create a reference to a collection
 # called "trending_events" where all the event data will go.
-cred = credentials.Certificate("firebase-key.json")
+cred = credentials.Certificate("new_tourio_key_python.json")
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 events_collection = db.collection("trending_events")
