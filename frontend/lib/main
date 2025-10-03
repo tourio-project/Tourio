@@ -1,0 +1,66 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'pages/activities_per_day_page.dart';
+import 'pages/ai_suggestions_page.dart';
+import 'pages/friendventure/friendventure_home_page.dart';
+import 'pages/friendventure/groups_page.dart';
+import 'pages/friendventure/polls_page.dart';
+import 'pages/intro_page.dart';
+import 'pages/login_page.dart';
+import 'pages/signup_page.dart';
+import 'pages/home_page.dart';
+import 'pages/trip_preferences_page.dart';
+import 'pages/trip_duration_page.dart';
+import 'pages/accommodation_page.dart';
+import 'pages/travel_mode_page.dart';
+import 'pages/budget_page.dart';
+import 'pages/group_size_page.dart';
+import 'pages/activity_recommendations_page.dart';
+import 'pages/your_trip_page.dart';
+import 'pages/my_profile_page.dart';
+import 'pages/edit_profile_page.dart';
+import 'pages/emergency_page.dart';
+import 'providers/budget_provider.dart';
+
+void main() {
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => BudgetProvider(),
+      child: const TourioApp(),
+    ),
+  );
+}
+
+class TourioApp extends StatelessWidget {
+  const TourioApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      initialRoute: '/intro',
+      routes: {
+        '/intro': (context) => const IntroPage(),
+        '/login': (context) => const LoginPage(),
+        '/signup': (context) => const SignUpPage(),
+        '/home': (context) => const HomePage(),
+        '/trip-preferences': (context) => const TripPreferencesPage(),
+        '/trip-duration': (context) => const TripDurationPage(),
+        '/activities-per-day': (context) => const ActivitiesPerDayPage(),
+        '/accommodation': (context) => const AccommodationPage(),
+        '/travel-mode': (context) => const TravelModePage(),
+        '/budget': (context) => const BudgetPage(),
+        '/group-size': (context) => const GroupSizePage(),
+        '/activity-recommendations': (context) => const ActivityRecommendationsPage(),
+        '/your-trip': (context) => const YourTripPage(),
+        '/friendventure': (context) => const FriendventureHomePage(),
+        '/friendventure/groups': (context) => const GroupsPage(),
+        '/friendventure/polls': (context) => const PollsPage(),
+        '/profile': (context) => const MyProfilePage(),
+        '/edit-profile': (context) => const EditProfilePage(),
+        '/emergency': (context) => const EmergencyPage(),
+        '/ai-suggestions': (context) => const AiSuggestionsPage(),
+
+      },
+    );
+  }
+}
