@@ -10,7 +10,12 @@ if __name__ == "__main__":
 MOODS = ["Calm","Romantic","Adventurous","Spontaneous",
             "Festive","Casual","Exploratory","Tired",
             "Cozy","Hungry","Curious","Creative", "Bored"]
-WEATHERS = ["Sunny", "Hot", "Raining","Cloudy","Cold","Snow","Humid"]
+WEATHERS = [
+    "Thunderstorm", "Drizzle", "Rain", "Snow",
+    "Mist", "Smoke", "Haze", "Dust",
+    "Sand", "Ash", "Squall", "Tornado",
+    "Clear", "Clouds"
+]
 CAT = ["Food & Drink","Nature/Outdoors","Culture/History","Art",
         "Adventure","Shopping","Spirituality","Festivals",
         "Wellness","Local Life","Sports","Spa & Beauty"]
