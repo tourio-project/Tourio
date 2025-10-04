@@ -2,21 +2,27 @@
 import tensorflow as tf
 import numpy as np
 import firebase_admin
-from GenData import random_user
 from AItrain import encode_loc,encode_user
-
+from fastapi import FastAPI
+from pydantic import BaseModel
+from typing import List
+import requests
+from sklearn.cluster import KMeans
+from fastapi import HTTPException
 if not firebase_admin._apps:
     cred = firebase_admin.credentials.Certificate("new tourio key python.json")
     firebase_admin.initialize_app(cred)
 db = firebase_admin.firestore.client()
-loc_db = db.collection("Training_Locations").stream()
+# loc_db = db.collection("Training_Locations").stream()
 # Once we get a good database of actual locations we can use them instead of the training locations
-#loc_db = db.collection("Locations").stream()
+loc_db = db.collection("Locations").stream()
 LOCATIONS = []
 for loc in loc_db:
     LOCATIONS.append(loc.to_dict())
 
 model = tf.keras.models.load_model("TourioModel.keras")
+
+app = FastAPI()
 
 def prefilter(user,numlocs, budgetpadding = 1.1):
     kept = []
@@ -44,36 +50,58 @@ def score_items_user(user,numlocs):
 def build_locs(user, days, options):
     ranked = score_items_user(user,days*options)
     locs = []
-    ind = 0
-    for d in range(days):
-        locs.append({
-            "day": d+1,
-            "options": []
-        })
-        for i in range(options):
-            x = ranked[ind]
-            ind+=1
-            y = {"name": x[0]["name"], "score": float(x[1]), "cost": x[0]["cost"], "weather_ok": x[0]["weather_ok"], "cat": x[0]["cat"], "mood":x[0]["mood"]}
-            locs[d]["options"].append(y)
-    return locs
+    for loc, score in ranked[:days*options]:
+        loc_copy = loc.copy()
+        loc_copy["score"] = float(score)
+        locs.append(loc_copy)
+    coords = np.array([[loc["lat"], loc["lon"]] for loc in locs])
+    kmeans = KMeans(n_clusters=days, n_init="auto").fit(coords)
+    labels = kmeans.labels_
+    clustered = {}
+    for loc, label in zip(locs, labels):
+        clustered.setdefault(label, []).append(loc)
+    remaining_locs = locs.copy()
+    result = []
+    for c in clustered:
+        cluster_locs = sorted(clustered[c], key=lambda x: x["score"], reverse=True)[:options]
+        for l in cluster_locs:
+            if l in remaining_locs:
+                remaining_locs.remove(l)
+        while len(cluster_locs) < options and remaining_locs:
+            cluster_locs.append(remaining_locs.pop(0))
+        result.append(cluster_locs)
 
-def demonstration(user,days = 2, options = 3):
-    locs = build_locs(user,days,options)
-    print("\nUser Prefrences:",user)
-    for day in locs:
-        print("Day ",day["day"],":" , sep = "")
-        for option in day["options"]:
-            print("\t- ",option["name"],", Cost: ~", option["cost"]," JD, Mood: ",option["mood"],", Acceptable Weather: ", option["weather_ok"], ", Categories: ", option["cat"], "\n\t - Score: ", option["score"], sep = "")
-    
-demonstration(random_user())
-demonstration(random_user())
-demonstration(random_user())
+    return result
 
 
-# TO DO:
- 
-# BUDGET OF EACH LOCATION (USER) WILL BE CALCULATED BY TOTAL BUDGET / DAYS*USEDOPTIONS
-# GROUP THE FINAL DAYS*OPTIONS LOCATIONS BY THEIR DISTANCES FROM EACH OTHER INTO DAYS
-# THEN HAVE THE DAY ORDER (1,2,3,...) BE DETERMINED BY A LOGICAL ORDER OF LIMITING DISTANCE TRAVELLED
-# SO YOU DONT GO FROM AQABA TO IRBID TO AMMAN
-# BUT RATHER AQABA TO AMMAN TO IRBID
+def get_current_weather(city="Amman"):
+    API_KEY = "e6191c5044b20c7561af031c996b5250"
+    url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric"
+    try:
+        r = requests.get(url, timeout=5).json()
+        if "weather" in r and len(r["weather"]) > 0:
+            return r["weather"][0]["main"]
+        else:
+            print("Weather API response unexpected:", r)
+            return "Clear"
+    except Exception as e:
+        print("Weather API failed:", e)
+        return "Clear"
+
+class UserPreferences(BaseModel):
+    moods: List[str]
+    budget: int
+    interests: List[str]
+    days : int
+    options : int
+
+
+@app.post("/recommend")
+def recommend_trips(prefs: UserPreferences):
+    days = prefs.days
+    options = prefs.options
+    try:
+        locsscore = build_locs({"mood": prefs.moods, "weather": get_current_weather(), "budget":prefs.budget / (days*options), "interests" : prefs.interests}, days, options)
+    except:
+        raise HTTPException(status_code=500, detail=f"Error building recommendations!")
+    return {"rec" : locsscore}
