@@ -12,7 +12,7 @@ import uvicorn
 # FIREBASE SETUP:
 # This part connects our Python app to Firebase Firestore,
 # which is the database we are using to store the scraped events.
-# We use a "firebase-key.json" file (the secret key we got from Firebase)
+# We use a "new_tourio_key_python. json" file (the key we got from Firebase)
 # to authenticate securely and then create a reference to a collection
 # called "trending_events" where all the event data will go.
 cred = credentials.Certificate("new_tourio_key_python.json")
