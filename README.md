@@ -20,7 +20,7 @@ It stores the events in Firebase Firestore and provides an API endpoint (`/trend
 ## Developers
 - Mira Diab — Backend (Trending Now, Emergency Service) & UI Design (Figma)
 - Mayar Hasan — UI design (Figma), frontend–backend integration
-- Nasser — Database etc. 
-- Omar Salman — AI Features etc.
-- Marwan Shashtari - Frontend etc.
+- Nasser — Database
+- Omar Salman — Backend (AI Mood - Based Trip Planner)
+- Marwan Shashtari - Frontend
 
