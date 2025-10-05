@@ -5,6 +5,8 @@ from firebase_admin import credentials, firestore, messaging
 from datetime import datetime
 from typing import Optional
 
+#TO BE CONTINUED/FURTHER TESTED :)
+
 # Firebase Setup
 cred = credentials.Certificate("firebase-key.json")
 firebase_admin.initialize_app(cred)
