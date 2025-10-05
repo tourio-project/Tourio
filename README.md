@@ -33,8 +33,6 @@ Tourio is a smart travel companion application that helps users plan and manage 
 
 </details>
 
----
-
 <details>
 <summary><b>Trending Now (Mira)</b></summary>
 
