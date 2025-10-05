@@ -23,13 +23,7 @@ Tourio is a smart travel companion application that helps users plan and manage 
 <details>
 <summary><b>AI Mood-Based Trip Planner</b></summary>
 
-**Backend:** `ai-planner-service`  
-**Frontend:** Flutter  
-
-**Setup Steps:**
-1. Run the FastAPI backend on port `8000`.  
-2. Add your OpenWeatherMap API key to the `.env` file.  
-3. In Flutter, call the `/plan-trip` endpoint to retrieve AI-generated itineraries.
+Oma20240852@std.psut.edu.jo
 
 </details>
 
