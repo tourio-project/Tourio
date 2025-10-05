@@ -23,7 +23,43 @@ Tourio is a smart travel companion application that helps users plan and manage 
 <details>
 <summary><b>AI Mood-Based Trip Planner</b></summary>
 
-Oma20240852@std.psut.edu.jo
+**Backend:** `ai-planner-service`  
+**Frontend:** Flutter  
+
+**Purpose:** Runs the AI-powered itinerary API, connects to Firebase Firestore, and serves model-based trip suggestions.  
+
+**Setup Steps:**
+
+1. **Navigate to the project folder and activate the virtual environment**
+```bash
+cd /Users/mayaryasein/Downloads/tourio_clean
+source backend_api/.venv-api/bin/activate
+Point the API to your Firebase service key
+
+bash
+Copy code
+export GOOGLE_APPLICATION_CREDENTIALS="$(pwd)/backend_api/new_tourio_key_python.json"
+Specify the AI model file path
+
+bash
+Copy code
+export TOURIO_MODEL_PATH="$(pwd)/backend_api/TourioModel.keras"
+Set the Firestore collection for locations
+
+bash
+Copy code
+export TOURIO_LOC_COLLECTION="Locations"
+Start the FastAPI service
+
+bash
+Copy code
+uvicorn backend_api.app:app --host 0.0.0.0 --port 8127 --reload
+Access the API documentation
+Open your browser:
+
+bash
+Copy code
+http://127.0.0.1:8127/docs#/
 
 </details>
 
