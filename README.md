@@ -1,4 +1,4 @@
-# Tourio
+ # Tourio
 
 Tourio is a smart travel companion application that helps users plan and manage their trips. It combines AI-based planning, live data, and safety features to create a smooth and reliable travel experience.
 
@@ -7,14 +7,11 @@ Tourio is a smart travel companion application that helps users plan and manage 
 ## Features
 
 - **AI Mood-Based Trip Planner**  
-  AI-driven itinerary generation based on mood, preferences, and live weather data.
+
 
 - **Trending Now (Backend: Mira)**  
   Automatically scrapes upcoming events from [calendar.jo](https://calendar.jo) every 24 hours.  
   The data is stored in Firebase Firestore and served through a FastAPI endpoint (`/trending`) for the frontend to fetch and display real-time event data.
-
-- **Integrated Public Transport**  
-  Provides live transport information and AI-powered route suggestions for efficient travel planning.
 
 - **Emergency Assistant & Safety Alerts**  
   Offers one-tap SOS functionality and auto-translated emergency phrases for traveler safety.
@@ -51,3 +48,15 @@ source backend_api/.venv-api/bin/activate
 pip install -r backend_api/requirements.txt   # (Run once)
 export GOOGLE_APPLICATION_CREDENTIALS="$(pwd)/backend_api/new_tourio_key_python.json"
 uvicorn backend_api.Event_Scraper:app --host 0.0.0.0 --port 8000 --reload
+
+## Design
+[![Figma Design](https://img.shields.io/badge/Figma-Design-blue?logo=figma)](https://www.figma.com/file/Zaen0sR7mtfpdEhu1beEey/Tourio?type=design&node-id=0%3A1&mode=design&t=sjqqiXtqNg2a94RO-1)
+
+
+## Developers
+- Mira Diab — Backend (Trending Now, Emergency Service) & UI Design (Figma)
+- Mayar Hasan — UI design (Figma), frontend–backend integration
+- Nasser — Database
+- Omar Salman — Backend (AI Mood - Based Trip Planner)
+- Marwan Shashtari - Frontend
+
