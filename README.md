@@ -32,25 +32,29 @@ Tourio is a smart travel companion application that helps users plan and manage 
 ```bash
 cd /Users/mayaryasein/Downloads/tourio_clean
 source backend_api/.venv-api/bin/activate
+```
 2. Point to your actual Firebase key (the file is inside backend_api/):
 
+```bash
 export GOOGLE_APPLICATION_CREDENTIALS="$(pwd)/backend_api/new_tourio_key_python.json"
-
+```
 
 3. Tell the API where the model file is:
 
+```bash
 export TOURIO_MODEL_PATH="$(pwd)/backend_api/TourioModel.keras"
-
+```
 
 4. Make sure we read from the right Firestore collection:
 
+```bash
 export TOURIO_LOC_COLLECTION="Locations"
-
+```
 
 5. Start the API on the port you’re using:
-
+```bash
 uvicorn backend_api.app:app --host 0.0.0.0 --port 8127 --reload
-
+```
 
 You might have to change the port number, then open this link with the correct port:
 http://127.0.0.1:8127/docs#/
