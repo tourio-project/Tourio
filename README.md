@@ -61,12 +61,7 @@ http://127.0.0.1:8127/docs#/
 
 If you change the port number, make sure to also update the URL in:
 lib/services/api.dart
-```
 
-
-1. Run the FastAPI backend on port `8000`.  
-2. Add your OpenWeatherMap API key to the `.env` file.  
-3. In Flutter, call the `/plan-trip` endpoint to retrieve AI-generated itineraries.
 
 </details>
 
