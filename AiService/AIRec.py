@@ -13,7 +13,7 @@ if not firebase_admin._apps:
     cred = firebase_admin.credentials.Certificate("new tourio key python.json")
     firebase_admin.initialize_app(cred)
 db = firebase_admin.firestore.client()
-# loc_db = db.collection("Training_Locations").stream()
+#loc_db = db.collection("Training_Locations").stream()
 # Once we get a good database of actual locations we can use them instead of the training locations
 loc_db = db.collection("Locations").stream()
 LOCATIONS = []
