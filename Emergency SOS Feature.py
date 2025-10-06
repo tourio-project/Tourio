@@ -1,4 +1,4 @@
-from fastapi import FastAPI, BackgroundTasks   #added BackgroundTasks to run things in the background
+from fastapi import FastAPI, BackgroundTasks
 from pydantic import BaseModel
 import firebase_admin
 from firebase_admin import credentials, firestore, messaging
@@ -15,14 +15,12 @@ db = firestore.client()
 # FastAPI App 
 app = FastAPI()
 
-# Contact model (for nested contacts)
 class Contact(BaseModel):
     name: str
     phone: str
     relationship: str
     device_token: Optional[str] = None
 
-# SOSRequest model
 class SOSRequest(BaseModel):
     user_id: str
     latitude: float
@@ -47,7 +45,7 @@ def send_multicast(tokens: list[str], title: str, body: str, data_payload: dict)
 
 @app.get("/")
 def root():
-    return {"message": "Hello Tourio!"}
+    return {"message": "Start Tourio!!"}
 
 
 @app.post("/register-token")
@@ -72,10 +70,10 @@ def trigger_sos(request: SOSRequest, background_tasks: BackgroundTasks):
     doc_ref = db.collection("sos_events").add(sos_event)
     sos_id = doc_ref[1].id
 
-    # Collect tokens from request contacts
+    # For collection of tokens from request contacts
     tokens = [c.device_token for c in request.contacts if c.device_token]
 
-    # Send notifications in background (so response is fast)
+    # Send notifications in background (faster response)
     if tokens:
         title = "SOS Alert!!"
         body = f"User {request.user_id} needs help near {request.latitude:.4f},{request.longitude:.4f}"
