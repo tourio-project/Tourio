@@ -87,7 +87,7 @@ uvicorn backend_api.Event_Scraper:app --host 0.0.0.0 --port 8000 --reload
 | Name            | Role / Contributions |
 |-----------------|----------------------|
 | **Mira Diab**   | Backend (Trending Now, Emergency Service) & UI Design (Figma) |
-| **Mayar Hasan** | UI Design (Figma), Frontend–Backend Integration |
+| **Mayar Hasan** | UI Design (Figma), Frontend, Frontend–Backend Integration |
 | **Nasser Zalloum** | Database |
 | **Omar Salman** | Data Generation, Backend (AI Mood-Based Trip Planner) |
 | **Marwan Shashtari** | Frontend |
