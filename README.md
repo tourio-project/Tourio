@@ -27,6 +27,39 @@ Tourio is a smart travel companion application that helps users plan and manage 
 **Frontend:** Flutter  
 
 **Setup Steps:**
+1. Navigate to the Project Directory and Activate the Virtual Environment:
+
+```bash
+cd /Users/mayaryasein/Downloads/tourio_clean
+source backend_api/.venv-api/bin/activate
+2. Point to your actual Firebase key (the file is inside backend_api/):
+
+export GOOGLE_APPLICATION_CREDENTIALS="$(pwd)/backend_api/new_tourio_key_python.json"
+
+
+3. Tell the API where the model file is:
+
+export TOURIO_MODEL_PATH="$(pwd)/backend_api/TourioModel.keras"
+
+
+4. Make sure we read from the right Firestore collection:
+
+export TOURIO_LOC_COLLECTION="Locations"
+
+
+5. Start the API on the port you’re using:
+
+uvicorn backend_api.app:app --host 0.0.0.0 --port 8127 --reload
+
+
+You might have to change the port number, then open this link with the correct port:
+http://127.0.0.1:8127/docs#/
+
+If you change the port number, make sure to also update the URL in:
+lib/services/api.dart
+```
+
+
 1. Run the FastAPI backend on port `8000`.  
 2. Add your OpenWeatherMap API key to the `.env` file.  
 3. In Flutter, call the `/plan-trip` endpoint to retrieve AI-generated itineraries.
