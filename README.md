@@ -17,7 +17,6 @@ Tourio is a smart travel companion application that helps users plan and manage 
 - **Emergency Assistant & Safety Alerts**  
   Offers one-tap SOS functionality and auto-translated emergency phrases for traveler safety.
 
----
 
 ## Setup & Integration Instructions
 
