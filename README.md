@@ -56,7 +56,7 @@ export TOURIO_LOC_COLLECTION="Locations"
 
 5. Start the API on the port you’re using:
 ```bash
-uvicorn backend_api.app:app --host 0.0.0.0 --port 8127 --reload
+uvicorn backend_api.app:app --host 0.0.0.0 --port 8130 --reload
 ```
 
 You might have to change the port number, then open this link with the correct port:
