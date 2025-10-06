@@ -56,9 +56,12 @@ uvicorn backend_api.Event_Scraper:app --host 0.0.0.0 --port 8000 --reload
 
 
 ## Developers
-- Mira Diab — Backend (Trending Now, Emergency Service) & UI Design (Figma)
-- Mayar Hasan — UI design (Figma), frontend–backend integration
-- Nasser — Database
-- Omar Salman — AI Recommendation Feature, Data Generation
-- Omar Salman — Backend (AI Mood - Based Trip Planner)
-- Marwan Shashtari - Frontend
+
+| Name            | Role / Contributions |
+|-----------------|----------------------|
+| **Mira Diab**   | Backend (Trending Now, Emergency Service) & UI Design (Figma) |
+| **Mayar Hasan** | UI Design (Figma), Frontend–Backend Integration |
+| **Nasser**      | Database |
+| **Omar Salman** | Data Generation, Backend (AI Mood-Based Trip Planner) |
+| **Marwan Shashtari** | Frontend |
+
