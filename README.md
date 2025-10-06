@@ -67,7 +67,7 @@ lib/services/api.dart
 </details>
 
 <details>
-<summary><b>Trending Now (Mira)</b></summary>
+<summary><b>Trending Now</b></summary>
 
 **Backend:** `trending-service`  
 **Purpose:** Scrapes event data from [calendar.jo](https://calendar.jo) every 24 hours and serves it via `/trending`.  
@@ -91,7 +91,7 @@ uvicorn backend_api.Event_Scraper:app --host 0.0.0.0 --port 8000 --reload
 |-----------------|----------------------|
 | **Mira Diab**   | Backend (Trending Now, Emergency Service) & UI Design (Figma) |
 | **Mayar Hasan** | UI Design (Figma), Frontend–Backend Integration |
-| **Nasser**      | Database |
+| **Nasser Zalloum** | Database |
 | **Omar Salman** | Data Generation, Backend (AI Mood-Based Trip Planner) |
 | **Marwan Shashtari** | Frontend |
 
