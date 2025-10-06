@@ -27,7 +27,7 @@ Tourio is a smart travel companion application that helps users plan and manage 
 <details>
 <summary><b>AI Mood-Based Trip Planner</b></summary>
 
-**Backend:** `ai-planner-service`  
+**Backend:** `aiservice`  
 
 **Setup Steps:**
 1. Navigate to the Project Directory and Activate the Virtual Environment:
