@@ -1,0 +1,13 @@
+import 'package:flutter/material.dart';
+
+enum TransportTypeEnum {
+  plane('Plane', Icons.airplanemode_active),
+  train('Train', Icons.train),
+  car('Car', Icons.directions_car),
+  bus('Bus', Icons.directions_bus);
+
+  final String label;
+  final IconData icon;
+
+  const TransportTypeEnum(this.label, this.icon);
+}

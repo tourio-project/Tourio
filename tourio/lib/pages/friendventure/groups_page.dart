@@ -1,0 +1,115 @@
+import 'package:flutter/material.dart';
+
+class GroupsPage extends StatelessWidget {
+  const GroupsPage({super.key});
+
+  List<_GroupItem> get _groups => const [
+        _GroupItem(name: 'Aqaba Trip Team', members: 10, date: 'Aug 15, 2025', location: 'Aqaba'),
+        _GroupItem(name: 'The Foodies', members: 5, date: 'Aug 20, 2025', location: 'Amman Food Festival'),
+        _GroupItem(name: 'Hiking Crew', members: 7, date: 'Oct 12, 2025', location: 'Dana Reserve'),
+      ];
+
+  @override
+  Widget build(BuildContext context) {
+    const cream = Color(0xFFF3E8DE);
+    const cardBg = Color(0xFFF6EDE4);
+    const maroon = Color(0xFF5C1E16);
+
+    return Scaffold(
+      body: SafeArea(
+        child: Container(
+          color: cream,
+          child: Column(
+            children: [
+              Align(
+                alignment: Alignment.topLeft,
+                child: IconButton(
+                  icon: const Icon(Icons.arrow_back, color: maroon, size: 28),
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ),
+              Expanded(
+                child: ListView.separated(
+                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                  itemCount: _groups.length,
+                  separatorBuilder: (_, __) => const SizedBox(height: 12),
+                  itemBuilder: (context, i) {
+                    final g = _groups[i];
+                    return Material(
+                      color: cardBg,
+                      borderRadius: BorderRadius.circular(18),
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(18),
+                        onTap: () {},
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      g.name,
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w700,
+                                        color: maroon,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 6),
+                                    Row(
+                                      children: [
+                                        const Icon(Icons.group, size: 16, color: maroon),
+                                        const SizedBox(width: 6),
+                                        Text('${g.members} members',
+                                            style: const TextStyle(color: maroon, fontSize: 13)),
+                                        const SizedBox(width: 12),
+                                        const Icon(Icons.event, size: 16, color: maroon),
+                                        const SizedBox(width: 6),
+                                        Text(g.date,
+                                            style: const TextStyle(color: maroon, fontSize: 13)),
+                                      ],
+                                    ),
+                                    if (g.location != null) ...[
+                                      const SizedBox(height: 6),
+                                      Row(
+                                        children: [
+                                          const Icon(Icons.location_on, size: 16, color: maroon),
+                                          const SizedBox(width: 6),
+                                          Text(g.location!,
+                                              style: const TextStyle(color: maroon, fontSize: 13)),
+                                        ],
+                                      ),
+                                    ],
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              IconButton(
+                                icon: const Icon(Icons.chat_bubble_outline, color: maroon),
+                                onPressed: () {},
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _GroupItem {
+  final String name;
+  final int members;
+  final String date;
+  final String? location;
+  const _GroupItem({required this.name, required this.members, required this.date, this.location});
+}

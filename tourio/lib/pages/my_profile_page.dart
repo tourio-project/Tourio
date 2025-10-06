@@ -1,0 +1,95 @@
+import 'package:flutter/material.dart';
+import '../widgets/tourio_logo.dart';
+import '../utils/navigation_utils.dart';
+
+class MyProfilePage extends StatelessWidget {
+  const MyProfilePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Color(0xFFF5E8C7), Color(0xFFF8EDEB)],
+          ),
+        ),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const TourioLogo(width: 180),
+                const SizedBox(height: 20),
+                const Text(
+                  'My Profile',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF5C1E16),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                const Text(
+                  'Manage your account details',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Color(0xFF8B4513),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                const ListTile(
+                  leading: Icon(Icons.person, color: Color(0xFFC03A2B)),
+                  title: Text(
+                    'Name: John Doe',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF5C1E16),
+                    ),
+                  ),
+                ),
+                const ListTile(
+                  leading: Icon(Icons.email, color: Color(0xFFC03A2B)),
+                  title: Text(
+                    'Email: john.doe@example.com',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF5C1E16),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/edit-profile');
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFFC03A2B),
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  child: const Text(
+                    'EDIT PROFILE',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+      bottomNavigationBar: buildBottomNavigationBar(context, 3),
+    );
+  }
+}

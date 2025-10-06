@@ -1,0 +1,8 @@
+import 'trip_activity.dart';
+
+class TripDay {
+  final int dayNumber;
+  final List<TripActivity> activities;
+
+  TripDay({required this.dayNumber, required this.activities});
+}

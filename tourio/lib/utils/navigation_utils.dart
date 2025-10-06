@@ -1,0 +1,34 @@
+import 'package:flutter/material.dart';
+
+BottomNavigationBar buildBottomNavigationBar(BuildContext context, int currentIndex) {
+  const cream = Color(0xFFF3E8DE);
+
+  const routes = <String>[
+    '/home',
+    '/your-trip',
+    '/friendventure',
+    '/profile',
+    '/emergency',
+  ];
+
+  return BottomNavigationBar(
+    currentIndex: currentIndex,
+    type: BottomNavigationBarType.fixed,
+    backgroundColor: const Color(0xFF1B0A0A),
+    selectedItemColor: cream,
+    unselectedItemColor: cream.withOpacity(.65),
+    showUnselectedLabels: true,
+    onTap: (i) {
+      final target = routes[i];
+      if (ModalRoute.of(context)?.settings.name == target) return;
+      Navigator.pushNamedAndRemoveUntil(context, target, (r) => false);
+    },
+    items: const [
+      BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: 'Home'),
+      BottomNavigationBarItem(icon: Icon(Icons.map_outlined), label: 'Your trip'),
+      BottomNavigationBarItem(icon: Icon(Icons.groups_outlined), label: 'Friendventure'),
+      BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: 'My Profile'),
+      BottomNavigationBarItem(icon: Icon(Icons.emergency_share_outlined), label: 'Emergency'),
+    ],
+  );
+}

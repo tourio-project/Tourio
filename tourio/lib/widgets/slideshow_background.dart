@@ -1,0 +1,104 @@
+import 'dart:async';
+import 'package:flutter/material.dart';
+
+class SlideshowBackground extends StatefulWidget {
+  const SlideshowBackground({
+    super.key,
+    required this.child,
+    this.interval = const Duration(seconds: 3),
+    this.fadeDuration = const Duration(milliseconds: 500),
+  });
+
+  final Widget child;
+
+  /// Time for image screen
+  final Duration interval;
+
+  final Duration fadeDuration;
+
+  @override
+  State<SlideshowBackground> createState() => _SlideshowBackgroundState();
+}
+
+class _SlideshowBackgroundState extends State<SlideshowBackground> {
+  final List<String> _bgImages = const [
+    'assets/images/deadsea.jpg',
+    'assets/images/downtown_pic.jpg',
+    'assets/images/nature_pic.jpg',
+    'assets/images/petra_image.jpg',
+    'assets/images/petra_lights.jpg',
+    'assets/images/sad_il_malek_talal.jpg',
+    'assets/images/stairtojabalamman.jpg',
+    'assets/images/wadi_rum.jpg',
+    'assets/images/webdeh_pic.jpg',
+  ];
+
+  Timer? _timer;
+  int _index = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _timer = Timer.periodic(widget.interval, (_) {
+      if (!mounted) return;
+      setState(() => _index = (_index + 1) % _bgImages.length);
+    });
+  }
+
+  @override
+  void didUpdateWidget(covariant SlideshowBackground oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.interval != widget.interval) {
+      _timer?.cancel();
+      _timer = Timer.periodic(widget.interval, (_) {
+        if (!mounted) return;
+        setState(() => _index = (_index + 1) % _bgImages.length);
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        
+        Positioned.fill(
+          child: AnimatedSwitcher(
+            duration: widget.fadeDuration,
+            switchInCurve: Curves.easeInOut,
+            switchOutCurve: Curves.easeInOut,
+            child: Container(
+              key: ValueKey(_bgImages[_index]),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(_bgImages[_index]),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ),
+        ),
+        
+        Positioned.fill(
+          child: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Colors.black87, Colors.black54, Colors.black45],
+              ),
+            ),
+          ),
+        ),
+        
+        Positioned.fill(child: widget.child),
+      ],
+    );
+  }
+}

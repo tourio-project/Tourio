@@ -1,0 +1,105 @@
+import 'package:flutter/material.dart';
+import '../../widgets/tourio_logo.dart';
+import '../../utils/navigation_utils.dart';
+
+class FriendventureHomePage extends StatelessWidget {
+  const FriendventureHomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Color(0xFFF5E8C7), Color(0xFFF8EDEB)],
+          ),
+        ),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const TourioLogo(width: 180),
+                const SizedBox(height: 20),
+                const Text(
+                  'Friendventure',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF5C1E16),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                const Text(
+                  'Connect with friends and plan your group adventures',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Color(0xFF8B4513),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Expanded(
+                  child: ListView(
+                    children: [
+                      _buildNavigationCard(
+                        context,
+                        title: 'Groups',
+                        subtitle: 'Create or join travel groups',
+                        icon: Icons.group,
+                        route: '/friendventure/groups',
+                      ),
+                      _buildNavigationCard(
+                        context,
+                        title: 'Polls',
+                        subtitle: 'Vote on trip plans and activities',
+                        icon: Icons.poll,
+                        route: '/friendventure/polls',
+                      ),
+                      
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+      bottomNavigationBar: buildBottomNavigationBar(context, 0),
+    );
+  }
+
+  Widget _buildNavigationCard(
+    BuildContext context, {
+    required String title,
+    required String subtitle,
+    required IconData icon,
+    required String route,
+  }) {
+    return Card(
+      elevation: 2,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+      margin: const EdgeInsets.only(bottom: 16),
+      child: ListTile(
+        leading: Icon(icon, color: const Color(0xFFC03A2B)),
+        title: Text(
+          title,
+          style: const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+            color: Color(0xFF5C1E16),
+          ),
+        ),
+        subtitle: Text(
+          subtitle,
+          style: const TextStyle(color: Color(0xFF8B4513)),
+        ),
+        onTap: () => Navigator.pushNamed(context, route),
+      ),
+    );
+  }
+}

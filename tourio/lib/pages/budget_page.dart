@@ -1,0 +1,198 @@
+import 'package:flutter/material.dart';
+
+class BudgetPage extends StatefulWidget {
+  const BudgetPage({super.key});
+
+  @override
+  State<BudgetPage> createState() => _BudgetPageState();
+}
+
+class _BudgetPageState extends State<BudgetPage> {
+  
+  static const cream = Color(0xFFF3E8DE);
+  static const heading = Color(0xFF5C1E16);
+  static const primary = Color(0xFFC03A2B);
+  static const trackDark = Color(0xFF2B0D0D);
+  static const trackStripe = Color(0xFF3A1412);
+
+  double _jd = 0;
+  static const double _min = 0;
+  static const double _max = 10000;
+
+  String _fmt(double v) => '${v.round()} JD';
+
+  @override
+  Widget build(BuildContext context) {
+    final Map args = (ModalRoute.of(context)?.settings.arguments as Map?) ?? {};
+
+    return Scaffold(
+      backgroundColor: cream,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(height: 8),
+
+              const Text(
+                'Help us plan your perfect trip — just a few quick questions!',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: heading,
+                  fontSize: 16,
+                  height: 1.3,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+
+              const SizedBox(height: 72),
+
+              const Text(
+                'Set your estimated total budget',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: heading,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              const SizedBox(height: 16),
+
+              
+              _DecoratedTrack(
+                child: SliderTheme(
+                  data: SliderTheme.of(context).copyWith(
+                    activeTrackColor: Colors.transparent,
+                    inactiveTrackColor: Colors.transparent,
+                    thumbColor: primary,
+                    overlayColor: primary.withOpacity(0.15),
+                  ),
+                  child: Slider(
+                    value: _jd,
+                    min: _min,
+                    max: _max,
+                    onChanged: (v) => setState(() => _jd = v),
+                  ),
+                ),
+              ),
+
+              
+              const SizedBox(height: 10),
+              Text(
+                _fmt(_jd),
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: heading,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+
+              // Min / Max labels
+              const SizedBox(height: 6),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('0 JD', style: TextStyle(color: heading, fontSize: 14)),
+                  Text('10000 JD',
+                      style: TextStyle(color: heading, fontSize: 14)),
+                ],
+              ),
+
+              const SizedBox(height: 72),
+
+              // Back / Next
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 160,
+                    child: OutlinedButton.icon(
+                      onPressed: () => Navigator.pop(context),
+                      icon: const Icon(Icons.arrow_back),
+                      label: const Text('BACK'),
+                      style: OutlinedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        side: const BorderSide(color: primary, width: 2),
+                        foregroundColor: primary,
+                        textStyle: const TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 24),
+                  SizedBox(
+                    width: 160,
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        final nextArgs = {
+                          ...args,
+                          'budgetTotalJD': _jd.round(),
+                        };
+                        Navigator.pushNamed(
+                          context,
+                          '/ai-suggestions',
+                          arguments: nextArgs,
+                        );
+                      },
+                      icon: const Icon(Icons.arrow_forward),
+                      label: const Text('NEXT'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: primary,
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        textStyle: const TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 24),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+class _DecoratedTrack extends StatelessWidget {
+  const _DecoratedTrack({required this.child});
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 36,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(14),
+        color: _BudgetPageState.trackDark,
+        gradient: const LinearGradient(
+          colors: [
+            _BudgetPageState.trackDark,
+            _BudgetPageState.trackStripe,
+            _BudgetPageState.trackDark,
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          stops: [0.0, 0.5, 1.0],
+        ),
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      alignment: Alignment.center,
+      child: child,
+    );
+  }
+}

@@ -1,0 +1,51 @@
+import 'package:flutter/material.dart';
+
+class EventRow extends StatelessWidget {
+  const EventRow({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    const beige = Color(0xFFF3E8DE);
+    const maroon = Color(0xFFA7332A);
+
+    Widget card() => Column(
+          children: [
+            Container(
+              width: 140,
+              height: 120,
+              decoration: BoxDecoration(
+                color: beige,
+                borderRadius: BorderRadius.circular(18),
+              ),
+            ),
+            const SizedBox(height: 8),
+            const Text('Event name', style: TextStyle(fontWeight: FontWeight.w700)),
+            const SizedBox(height: 2),
+            const Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.location_on_outlined, size: 16, color: maroon),
+                SizedBox(width: 4),
+                Text('location', style: TextStyle(color: maroon, fontWeight: FontWeight.w600)),
+              ],
+            ),
+          ],
+        );
+
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Row(
+        children: [
+          card(),
+          const SizedBox(width: 16),
+          card(),
+          const SizedBox(width: 16),
+          card(),
+          const SizedBox(width: 16),
+          card(),
+        ],
+      ),
+    );
+  }
+}

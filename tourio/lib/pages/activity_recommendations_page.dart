@@ -1,0 +1,166 @@
+import 'package:flutter/material.dart';
+import '../widgets/tourio_logo.dart';
+import '../utils/navigation_utils.dart';
+import '../widgets/swipe_card.dart';
+import '../models/activity_card.dart';
+import '../models/transport_type_enum.dart';
+
+class ActivityRecommendationsPage extends StatefulWidget {
+  const ActivityRecommendationsPage({super.key});
+
+  @override
+  State<ActivityRecommendationsPage> createState() => _ActivityRecommendationsPageState();
+}
+
+class _ActivityRecommendationsPageState extends State<ActivityRecommendationsPage> {
+  final List<ActivityCard> _activities = [
+    ActivityCard(
+      image: 'assets/petra_image.jpg',
+      title: 'Petra Tour',
+      description: 'Explore the ancient city of Petra',
+      location: 'Petra, Jordan',
+      duration: '4 hours',
+      transport: [TransportTypeEnum.bus, TransportTypeEnum.car],
+    ),
+    ActivityCard(
+      image: 'assets/deadsea.jpg',
+      title: 'Dead Sea Relaxation',
+      description: 'Float in the saline waters of the Dead Sea',
+      location: 'Dead Sea, Jordan',
+      duration: '3 hours',
+      transport: [TransportTypeEnum.car],
+    ),
+  ];
+  int _currentIndex = 0;
+  final List<ActivityCard> _selectedActivities = [];
+
+  void _onSwipeRight() {
+    setState(() {
+      _selectedActivities.add(_activities[_currentIndex]);
+      _currentIndex = (_currentIndex + 1) % _activities.length;
+    });
+  }
+
+  void _onSwipeLeft() {
+    setState(() {
+      _currentIndex = (_currentIndex + 1) % _activities.length;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Color(0xFFF5E8C7), Color(0xFFF8EDEB)],
+          ),
+        ),
+        child: SafeArea(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Row(
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.arrow_back, color: Color(0xFF5C1E16)),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                    const Expanded(child: SizedBox()),
+                    const TourioLogo(width: 180, dy: 0),
+                  ],
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.0),
+                child: Text(
+                  'Swipe to choose your activities!',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Color(0xFF5C1E16),
+                    fontWeight: FontWeight.w500,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              const SizedBox(height: 40),
+              Expanded(
+                child: _currentIndex < _activities.length
+                    ? SwipeCard(
+                        activity: _activities[_currentIndex],
+                        onSwipeRight: _onSwipeRight,
+                        onSwipeLeft: _onSwipeLeft,
+                      )
+                    : const Center(
+                        child: Text(
+                          'No more activities to swipe!',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Color(0xFF5C1E16),
+                          ),
+                        ),
+                      ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: OutlinedButton(
+                        onPressed: () => Navigator.pop(context),
+                        style: OutlinedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        child: const Text(
+                          'BACK',
+                          style: TextStyle(
+                            color: Color(0xFFC03A2B),
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          // TODO: Save selected activities to provider or backend
+                          Navigator.pushNamed(context, '/your-trip');
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFFC03A2B),
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        child: const Text(
+                          'NEXT',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+            ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: buildBottomNavigationBar(context, -1),
+    );
+  }
+}
