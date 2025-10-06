@@ -82,6 +82,8 @@ pip install -r backend_api/requirements.txt   # (Run once)
 export GOOGLE_APPLICATION_CREDENTIALS="$(pwd)/backend_api/new_tourio_key_python.json"
 uvicorn backend_api.Event_Scraper:app --host 0.0.0.0 --port 8000 --reload
 ```
+You might have to change the port number, then open this link with the correct port:
+http://127.0.0.1:8000/docs#/
 </details>
 
 
