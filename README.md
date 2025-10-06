@@ -71,7 +71,7 @@ lib/services/api.dart
 <details>
 <summary><b>Trending Now</b></summary>
 
-**Backend:** `trending-service`  
+**Backend:** `24hr Calendar.jo Event Scraper`  
 
 
 **To activate the scraper, run the following commands in your terminal:**
