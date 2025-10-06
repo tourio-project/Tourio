@@ -7,7 +7,10 @@ Tourio is a smart travel companion application that helps users plan and manage 
 
 ## Features
 
-- **AI Mood-Based Trip Planner**  
+- **AI Mood-Based Trip Planner**
+  AI Based trip planner that uses the users mood/s, interests, budget, and the weather to plan a viable trip which pioritizes user experience
+  Used a Tensorflow based Neural Network to score how good a certian location would be for the user
+  Uses location based clustering to cluster together close areas so each potential option isnt too far from the others 
 
 
 - **Trending Now**  
