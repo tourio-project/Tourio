@@ -1,8 +1,9 @@
- # Tourio
+ # **Tourio**
 
 Tourio is a smart travel companion application that helps users plan and manage their trips. It combines AI-based planning, live data, and safety features to create a smooth and reliable travel experience.
 
----
+## Design
+[![Figma Design](https://img.shields.io/badge/Figma-Design-blue?logo=figma)](https://www.figma.com/file/Zaen0sR7mtfpdEhu1beEey/Tourio?type=design&node-id=0%3A1&mode=design&t=sjqqiXtqNg2a94RO-1)
 
 ## Features
 
@@ -81,10 +82,7 @@ export GOOGLE_APPLICATION_CREDENTIALS="$(pwd)/backend_api/new_tourio_key_python.
 uvicorn backend_api.Event_Scraper:app --host 0.0.0.0 --port 8000 --reload
 ```
 </details>
----
 
-## Design
-[![Figma Design](https://img.shields.io/badge/Figma-Design-blue?logo=figma)](https://www.figma.com/file/Zaen0sR7mtfpdEhu1beEey/Tourio?type=design&node-id=0%3A1&mode=design&t=sjqqiXtqNg2a94RO-1)
 
 
 ## Developers
