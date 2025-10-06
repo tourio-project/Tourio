@@ -49,7 +49,7 @@ def scrape_calendar():
         }
         events.append(event_data)
 
-        # Use a unique ID (Title + Date) so if the event already exists, it gets updated
+        # Use a unique ID (Title + Date) so if the event already exists it gets updated
         doc_id = f"{event_data['Title']}_{event_data['Date']}"
         events_collection.document(doc_id).set(event_data)
 
@@ -57,8 +57,7 @@ def scrape_calendar():
 
 
 # FASTAPI ENDPOINT:
-# FastAPI lets us easily create an API for our data.
-# This endpoint (/trending) will let anyone (like the frontend team)
+# This endpoint (/trending) will let the frontend team
 # fetch all the events stored in Firestore as JSON.
 app = FastAPI()
 
@@ -71,11 +70,11 @@ def get_trending():
 
 # SCHEDULER:
 # We want our scraper to run every 24 hours automatically,
-# so the events in our database always stay fresh.
+# so the events in our database always stay updated.
 # The first run happens immediately when the script starts,
 # and then the scheduler keeps it going in the background.
 schedule.every(24).hours.do(scrape_calendar)
-scrape_calendar()  # run once on startup
+scrape_calendar()
 
 def run_scheduler():
     while True:
