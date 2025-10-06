@@ -10,7 +10,7 @@ Tourio is a smart travel companion application that helps users plan and manage 
 - **AI Mood-Based Trip Planner**  
 
 
-- **Trending Now (Backend: Mira)**  
+- **Trending Now**  
   Automatically scrapes upcoming events from [calendar.jo](https://calendar.jo) every 24 hours.  
   The data is stored in Firebase Firestore and served through a FastAPI endpoint (`/trending`) for the frontend to fetch and display real-time event data.
 
@@ -24,7 +24,6 @@ Tourio is a smart travel companion application that helps users plan and manage 
 <summary><b>AI Mood-Based Trip Planner</b></summary>
 
 **Backend:** `ai-planner-service`  
-**Frontend:** Flutter  
 
 **Setup Steps:**
 1. Navigate to the Project Directory and Activate the Virtual Environment:
@@ -69,7 +68,6 @@ lib/services/api.dart
 <summary><b>Trending Now</b></summary>
 
 **Backend:** `trending-service`  
-**Purpose:** Scrapes event data from [calendar.jo](https://calendar.jo) every 24 hours and serves it via `/trending`.  
 
 
 **To activate the scraper, run the following commands in your terminal:**
